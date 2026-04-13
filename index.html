@@ -1,11 +1,656 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="az">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Kassa İnkassasiya İdarəetmə Sistemi | Texniki Təklif</title>
+  <style>
+    /* ================= RESET & GLOBAL ================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Lokal font fallbackləri - Chrome-da problemsiz */
+    body {
+      background: #f8f7f2;
+      color: #1a1a2e;
+      font-family: 'Segoe UI', 'Syne', 'Arial', sans-serif;
+      padding: 2rem 1.5rem;
+      line-height: 1.4;
+    }
+
+    /* ================= VARIABLES ================= */
+    :root {
+      --c-ink: #1a1a2e;
+      --c-surface: #f8f7f2;
+      --c-card: #ffffff;
+      --c-accent: #2563eb;
+      --c-accent-soft: #eff6ff;
+      --c-gold: #d97706;
+      --c-gold-soft: #fffbeb;
+      --c-green: #059669;
+      --c-green-soft: #ecfdf5;
+      --c-border: #e5e3da;
+      --c-muted: #6b7280;
+      --font-mono: 'Courier New', 'IBM Plex Mono', 'Consolas', monospace;
+    }
+
+    /* ================= TYPOGRAPHY ================= */
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: var(--c-ink);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 2px;
+      letter-spacing: .06em;
+      display: inline-block;
+      margin-bottom: .75rem;
+    }
+
+    h1 {
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: .5rem;
+      letter-spacing: -0.3px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      letter-spacing: .1em;
+      color: var(--c-muted);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      padding-bottom: .5rem;
+      border-bottom: 0.5px solid var(--c-border);
+    }
+
+    /* ================= HEADER ================= */
+    .offer-header {
+      border-bottom: 2px solid var(--c-ink);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ================= MODULE GRID ================= */
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .module-card {
+      background: var(--c-card);
+      border: 0.5px solid var(--c-border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      transition: all 0.2s;
+    }
+
+    .module-card.featured {
+      border: 1.5px solid var(--c-accent);
+      background: var(--c-accent-soft);
+    }
+
+    .module-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--c-muted);
+      margin-bottom: .5rem;
+    }
+
+    .module-name {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: .75rem;
+    }
+
+    .module-items {
+      list-style: none;
+    }
+
+    .module-items li {
+      font-size: 12.5px;
+      color: var(--c-muted);
+      padding: 3px 0;
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .module-items li::before {
+      content: '—';
+      opacity: .4;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .module-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 2px;
+      display: inline-block;
+      margin-top: .75rem;
+    }
+
+    .tag-fe { background: #fef3c7; color: #92400e; }
+    .tag-be { background: #e0f2fe; color: #0c4a6e; }
+    .tag-full { background: #f0fdf4; color: #14532d; }
+
+    /* ================= STACK GRID ================= */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .75rem;
+      margin-bottom: 2rem;
+    }
+
+    .stack-item {
+      background: var(--c-card);
+      border: 0.5px solid var(--c-border);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .stack-item .layer {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--c-muted);
+      margin-bottom: .4rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .stack-item .tech {
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* ================= TIMELINE ================= */
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0;
+      margin-bottom: 2rem;
+      border: 0.5px solid var(--c-border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .phase {
+      padding: 1rem;
+      border-right: 0.5px solid var(--c-border);
+    }
+    .phase:last-child { border-right: none; }
+
+    .phase-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--c-muted);
+      margin-bottom: .4rem;
+    }
+    .phase-name {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: .3rem;
+    }
+    .phase-weeks {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--c-accent);
+    }
+    .phase-items {
+      margin-top: .6rem;
+    }
+    .phase-items li {
+      font-size: 11px;
+      color: var(--c-muted);
+      list-style: none;
+      padding: 2px 0;
+    }
+    .phase-items li::before {
+      content: '·';
+      margin-right: 4px;
+    }
+
+    /* ================= PRICE TABLE ================= */
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+      font-size: 13px;
+    }
+    .price-table th {
+      text-align: left;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      letter-spacing: .06em;
+      color: var(--c-muted);
+      padding: 8px 12px;
+      border-bottom: 0.5px solid var(--c-border);
+      font-weight: 400;
+    }
+    .price-table td {
+      padding: 10px 12px;
+      border-bottom: 0.5px solid var(--c-border);
+      vertical-align: top;
+    }
+    .price-table .amount {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      white-space: nowrap;
+      text-align: right;
+    }
+    .price-table .subtotal td {
+      background: var(--c-surface);
+      font-weight: 500;
+    }
+    .total-row td {
+      font-weight: 700;
+      font-size: 15px;
+      border-top: 2px solid var(--c-ink);
+      padding-top: 14px;
+    }
+
+    /* ================= NOTES & SUPPORT ================= */
+    .notes {
+      background: var(--c-gold-soft);
+      border: 0.5px solid #fcd34d;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .notes-title {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      color: var(--c-gold);
+      margin-bottom: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .notes ul {
+      list-style: none;
+    }
+    .notes ul li {
+      font-size: 13px;
+      padding: 4px 0;
+      color: #78350f;
+      display: flex;
+      gap: 8px;
+    }
+    .notes ul li::before {
+      content: '!';
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--c-gold);
+      flex-shrink: 0;
+    }
+
+    .support-box {
+      background: var(--c-green-soft);
+      border: 0.5px solid #059669;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .support-title {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      color: var(--c-green);
+      margin-bottom: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .support-box ul {
+      list-style: none;
+    }
+    .support-box ul li {
+      font-size: 13px;
+      padding: 4px 0;
+      color: #064e3b;
+      display: flex;
+      gap: 8px;
+    }
+    .support-box ul li::before {
+      content: '✓';
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--c-green);
+      flex-shrink: 0;
+    }
+
+    /* ================= FOOTER ================= */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-top: 1.5rem;
+      border-top: 2px solid var(--c-ink);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-left, .footer-right {
+      font-size: 12px;
+      color: var(--c-muted);
+      font-family: var(--font-mono);
+    }
+    .footer-right {
+      text-align: right;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      .stack-grid { grid-template-columns: repeat(2, 1fr); }
+      .timeline { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .stack-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Hello World</h1>
+
+<div class="offer-header">
+  <div class="badge">KOMMERSİAL TƏKLİF — 2025</div>
+  <h1>Kassa İnkassasiya İdarəetmə Sistemi</h1>
+</div>
+
+<!-- ================= TEXNİKİ ARXITEKTURA ================= -->
+<div class="section-title">Texniki arxitektura</div>
+<div class="stack-grid">
+  <div class="stack-item">
+    <div class="layer">Frontend</div>
+    <div class="tech">React 18<br>TypeScript<br>Ant Design / TailwindCSS<br>React Query<br>React Hook Form<br>Recharts</div>
+  </div>
+  <div class="stack-item">
+    <div class="layer">Backend</div>
+    <div class="tech">NestJS<br>TypeScript<br>TypeORM<br>PostgreSQL 15<br>Redis (cache/queue)<br>Rabbit MQ</div>
+  </div>
+  <div class="stack-item">
+    <div class="layer">Infra & QA</div>
+    <div class="tech">Docker + Compose<br>JWT + RBAC auth<br>Swagger / OpenAPI<br>Jest + E2E tests<br>Winston logging<br>GitHub Actions CI</div>
+  </div>
+</div>
+
+<!-- ================= MODULLAR ================= -->
+<div class="section-title">Modullar</div>
+<div class="module-grid">
+  <div class="module-card featured">
+    <div class="module-num">01</div>
+    <div class="module-name">Kassa Bağlanış Modulu</div>
+    <ul class="module-items">
+      <li>Növbə açma / bağlama ekranı</li>
+      <li>POS məlumatlarının çəkilməsi (API / manual)</li>
+      <li>Gözlənilən cash qalığı hesablaması</li>
+      <li>Kassa bağlanış tarixçəsi</li>
+      <li>Status idarəetməsi</li>
+    </ul>
+    <span class="module-tag tag-full">Full-stack</span>
+  </div>
+  <div class="module-card">
+    <div class="module-num">02</div>
+    <div class="module-name">Pul Sayım Modulu</div>
+    <ul class="module-items">
+      <li>Nominal üzrə sayım (200→qəpik)</li>
+      <li>Avtomatik cəm hesablaması</li>
+      <li>İlkin + yekun sayım imkanı</li>
+      <li>Fərq analizi (artıq/əskik)</li>
+      <li>Səbəb kodları + izahat sahəsi</li>
+    </ul>
+    <span class="module-tag tag-full">Full-stack</span>
+  </div>
+  <div class="module-card">
+    <div class="module-num">03</div>
+    <div class="module-name">İnkassasiya Sənədi Modulu</div>
+    <ul class="module-items">
+      <li>Sənəd avtomatik yaradılması</li>
+      <li>Zərf / plomb nömrəsi daxil etmə</li>
+      <li>Status izləmə (11 status)</li>
+      <li>PDF çap forması</li>
+      <li>Unikal sənəd nömrəsi (idempotency)</li>
+    </ul>
+    <span class="module-tag tag-full">Full-stack</span>
+  </div>
+  <div class="module-card">
+    <div class="module-num">04</div>
+    <div class="module-name">Təsdiq Axını (Approval Flow)</div>
+    <ul class="module-items">
+      <li>Role-based approval (kassir → müdir → maliyyə)</li>
+      <li>Limit əsaslı eskalasiya (5 AZN, 50 AZN)</li>
+      <li>Bildiriş sistemi</li>
+      <li>Rədd / təsdiq əsaslandırması</li>
+      <li>Audit trail hər addım üçün</li>
+    </ul>
+    <span class="module-tag tag-full">Full-stack</span>
+  </div>
+  <div class="module-card">
+    <div class="module-num">05</div>
+    <div class="module-name">Transfer & Bank Modulu</div>
+    <ul class="module-items">
+      <li>Mərkəzi kassa / bank 2 ssenarisi</li>
+      <li>Marşrut izləmə</li>
+      <li>Bank slip qeydiyyatı</li>
+      <li>Depozit məbləği yoxlaması</li>
+      <li>Bank sənədi yükləmə</li>
+    </ul>
+    <span class="module-tag tag-full">Full-stack</span>
+  </div>
+  <div class="module-card">
+    <div class="module-num">06</div>
+    <div class="module-name">Fərq & İnsiden İdarəetmə</div>
+    <ul class="module-items">
+      <li>Fərq qeydiyyatı + səbəb kodları</li>
+      <li>Araşdırma statusu</li>
+      <li>Məsul şəxs təyini</li>
+      <li>Qərar (bağlanış / silinmə)</li>
+      <li>Limit əsaslı avtomatik açılma</li>
+    </ul>
+    <span class="module-tag tag-be">Backend-heavy</span>
+  </div>
+  <div class="module-card">
+    <div class="module-num">07</div>
+    <div class="module-name">Hesabat & Dashboard Modulu</div>
+    <ul class="module-items">
+      <li>Gündəlik / aylıq cash hesabatları</li>
+      <li>Kassir üzrə fərq analitikası</li>
+      <li>Filial üzrə cash toplama</li>
+      <li>Banka çatmayan sənədlər</li>
+      <li>Export (Excel / PDF)</li>
+    </ul>
+    <span class="module-tag tag-fe">Frontend-heavy</span>
+  </div>
+  <div class="module-card">
+    <div class="module-num">08</div>
+    <div class="module-name">Auth & RBAC Modulu</div>
+    <ul class="module-items">
+      <li>JWT access + refresh token</li>
+      <li>5 rol (kassir, müdir, inkassator, maliyyə, admin)</li>
+      <li>Mağaza səviyyəsində icazə</li>
+      <li>İki mərhələli təsdiq (kritik əməliyyatlar)</li>
+      <li>Session idarəetməsi</li>
+    </ul>
+    <span class="module-tag tag-be">Backend-heavy</span>
+  </div>
+  <div class="module-card">
+    <div class="module-num">09</div>
+    <div class="module-name">ERP / LOGO İnteqrasiyası</div>
+    <ul class="module-items">
+      <li>Webhook + REST API çıxışı</li>
+      <li>Kassa çıxışı → ERP journal</li>
+      <li>Bank depozit → ERP</li>
+      <li>Idempotency key (təkrar yazılma qoruması)</li>
+      <li>Sync log + xəta idarəetməsi</li>
+    </ul>
+    <span class="module-tag tag-be">Backend-heavy</span>
+  </div>
+  <div class="module-card">
+    <div class="module-num">10</div>
+    <div class="module-name">Audit & Loq Sistemi</div>
+    <ul class="module-items">
+      <li>Hər sahə dəyişikliyi loglanır</li>
+      <li>Kim, nə vaxt, nə dəyişdi</li>
+      <li>Əvvəlki / yeni dəyər saxlanılır</li>
+      <li>Filtrlənə bilən audit ekranı</li>
+      <li>Uzunmüddətli saxlama strategiyası</li>
+    </ul>
+    <span class="module-tag tag-be">Backend-heavy</span>
+  </div>
+</div>
+
+<!-- ================= İŞ PLANI (TIMELINE) ================= -->
+<div class="section-title">İş planı — timeline</div>
+<div class="timeline">
+  <div class="phase">
+    <div class="phase-num">Faza 1</div>
+    <div class="phase-name">Əsas altyapı</div>
+    <div class="phase-weeks">2 həftə</div>
+    <ul class="phase-items">
+      <li>DB schema & migrations</li>
+      <li>Auth + RBAC</li>
+      <li>Docker setup</li>
+      <li>CI/CD pipeline</li>
+    </ul>
+  </div>
+  <div class="phase">
+    <div class="phase-num">Faza 2</div>
+    <div class="phase-name">Core modullar</div>
+    <div class="phase-weeks">4 həftə</div>
+    <ul class="phase-items">
+      <li>Kassa bağlanış</li>
+      <li>Pul sayım</li>
+      <li>İnkassasiya sənədi</li>
+      <li>Status axını</li>
+    </ul>
+  </div>
+  <div class="phase">
+    <div class="phase-num">Faza 3</div>
+    <div class="phase-name">Təsdiq & transfer</div>
+    <div class="phase-weeks">3 həftə</div>
+    <ul class="phase-items">
+      <li>Approval flow</li>
+      <li>Bank modulu</li>
+      <li>Fərq idarəetmə</li>
+      <li>Bildiriş sistemi</li>
+    </ul>
+  </div>
+  <div class="phase">
+    <div class="phase-num">Faza 4</div>
+    <div class="phase-name">Hesabat & inteq.</div>
+    <div class="phase-weeks">3 həftə</div>
+    <ul class="phase-items">
+      <li>Dashboard</li>
+      <li>Hesabatlar + export</li>
+      <li>ERP inteqrasiyası</li>
+      <li>Audit ekranı</li>
+    </ul>
+  </div>
+  <div class="phase">
+    <div class="phase-num">Faza 5</div>
+    <div class="phase-name">Test & deploy</div>
+    <div class="phase-weeks">2 həftə</div>
+    <ul class="phase-items">
+      <li>Unit + E2E testlər</li>
+      <li>Swagger docs</li>
+      <li>UAT + bugfix</li>
+      <li>Production deploy</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= QİYMƏT BÖLGÜSÜ ================= -->
+<div class="section-title">Qiymət bölgüsü</div>
+<table class="price-table">
+  <thead>
+  <tr><th style="width:40%">Deliverable</th><th>Gün / Həftə</th><th style="text-align:right">Qiymət (USD)</th></tr>
+  </thead>
+  <tbody>
+  <tr><td colspan="3" style="padding:6px 12px;font-size:11px;background:#f8f7f2;letter-spacing:.06em">BACKEND — NestJS + PostgreSQL + Docker</td></tr>
+  <tr><td>DB schema, migration, seed data</td><td style="color:#6b7280">3 gün</td><td class="amount">450</td></tr>
+  <tr><td>Auth, RBAC, session idarəetməsi</td><td style="color:#6b7280">4 gün</td><td class="amount">600</td></tr>
+  <tr><td>Kassa bağlanış + pul sayım API</td><td style="color:#6b7280">5 gün</td><td class="amount">750</td></tr>
+  <tr><td>İnkassasiya sənədi + status engine</td><td style="color:#6b7280">5 gün</td><td class="amount">750</td></tr>
+  <tr><td>Approval flow + limit eskalasiyası</td><td style="color:#6b7280">4 gün</td><td class="amount">600</td></tr>
+  <tr><td>Transfer + bank depozit modulu</td><td style="color:#6b7280">4 gün</td><td class="amount">600</td></tr>
+  <tr><td>Fərq + insiden idarəetmə</td><td style="color:#6b7280">3 gün</td><td class="amount">450</td></tr>
+  <tr><td>ERP / LOGO inteqrasiya API</td><td style="color:#6b7280">5 gün</td><td class="amount">750</td></tr>
+  <tr><td>Audit log sistemi</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
+  <tr class="subtotal"><td colspan="2" style="font-weight:500">Backend cəm</td><td class="amount" style="font-weight:700">5,250</td></tr>
+
+  <tr><td colspan="3" style="padding:6px 12px;font-size:11px;background:#f8f7f2;letter-spacing:.06em">FRONTEND — React 18 + TypeScript</td></tr>
+  <tr><td>Layihə qurulması, dizayn sistemi, layout</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
+  <tr><td>Login, profil, rol-based routing</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
+  <tr><td>Dashboard (filial, cash, xəbərdarlıq)</td><td style="color:#6b7280">3 gün</td><td class="amount">450</td></tr>
+  <tr><td>Kassa bağlanış + pul sayım ekranı</td><td style="color:#6b7280">4 gün</td><td class="amount">600</td></tr>
+  <tr><td>İnkassasiya sənədi + PDF çap</td><td style="color:#6b7280">3 gün</td><td class="amount">450</td></tr>
+  <tr><td>Approval + bildiriş ekranları</td><td style="color:#6b7280">3 gün</td><td class="amount">450</td></tr>
+  <tr><td>Transfer + bank ekranı</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
+  <tr><td>Fərq idarəetmə + audit ekranı</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
+  <tr><td>Hesabat + export (Excel/PDF)</td><td style="color:#6b7280">4 gün</td><td class="amount">600</td></tr>
+  <tr class="subtotal"><td colspan="2" style="font-weight:500">Frontend cəm</td><td class="amount" style="font-weight:700">3,750</td></tr>
+
+  <tr><td colspan="3" style="padding:6px 12px;font-size:11px;background:#f8f7f2;letter-spacing:.06em">INFRA, TEST & DOKUMENTASIYA</td></tr>
+  <tr><td>Docker Compose + environment setup</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
+  <tr><td>Jest unit testlər (backend, ≥70% coverage)</td><td style="color:#6b7280">3 gün</td><td class="amount">450</td></tr>
+  <tr><td>E2E testlər (Supertest / Playwright)</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
+  <tr><td>Swagger / OpenAPI dokumentasiyası</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
+  <tr><td>Texniki sənədləşmə (README, wiki)</td><td style="color:#6b7280">1 gün</td><td class="amount">150</td></tr>
+  <tr><td>GitHub Actions CI/CD pipeline</td><td style="color:#6b7280">1 gün</td><td class="amount">150</td></tr>
+  <tr class="subtotal"><td colspan="2" style="font-weight:500">Infra/Test/Docs cəm</td><td class="amount" style="font-weight:700">1,650</td></tr>
+
+  <tr class="total-row"><td colspan="2">CƏMİ (ERP inteqrasiyası daxil olmaqla)</td><td class="amount" style="color:#2563eb; font-weight:800">$10,650</td></tr>
+  </tbody>
+</table>
+
+<!-- ================= ŞƏRTLƏR VƏ QEYDLƏR ================= -->
+<div class="notes">
+  <div class="notes-title">Şərtlər və qeydlər</div>
+  <ul>
+    <li>Ödəniş: 30% avans, 40% Faza 3 tamamlandıqda, 30% təhvildə</li>
+    <li>Hostinq (server, domain, SSL) bu qiymətə daxil deyil</li>
+    <li>Texniki sənədlər, Swagger, README Azərbaycan dilində təqdim edilir</li>
+    <li>Layihənin başlanğıcında əlavə olaraq 1 həftə planning və 1 həftə design (user-friendly interfeys üçün) nəzərdə tutulub.</li>
+  </ul>
+</div>
+
+<!-- ================= SUPPORT VƏ ZƏMANƏT ================= -->
+<div class="support-box">
+  <div class="support-title">Dəstək və zəmanət şərtləri</div>
+  <ul>
+    <li><strong>Açılışdan sonra proyektə aid bütün buglar və problemlər aradan qaldırılana kimi tam dəstək veriləcək.</strong></li>
+    <li>Bu dəstək müddəti heç bir əlavə ödəniş tələb etmir — bütün səhvlər düzəldilənə qədər davam edir.</li>
+    <li>Əsas dəstək müddəti bitdikdən sonra 2 seçim mövcuddur:
+      <ul style="margin-top: 6px; margin-left: 24px; list-style: disc;">
+        <li style="color: #064e3b; display: list-item; list-style: disc; margin-left: 16px;">Aylıq 600 manat (AZN) support müqaviləsi</li>
+        <li style="color: #064e3b; display: list-item; list-style: disc; margin-left: 16px;">Tapşırıq başı (per-task / hourly) razılaşma</li>
+      </ul>
+    </li>
+    <li>Support yalnız proyektin stabil işləməsi, təhlükəsizlik yeniləmələri və kiçik dəyişiklikləri əhatə edir. Yeni modul və ya böyük miqyaslı dəyişikliklər ayrıca razılaşdırılır.</li>
+  </ul>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<div class="footer">
+  <div class="footer-left">
+    <strong>Qeyd:</strong> Bütün modullar tam stack olaraq hazırlanır.<br>
+    React 18 + TypeScript · NestJS · PostgreSQL · Docker
+  </div>
+  <div class="footer-right">
+    Cəmi iş vaxtı: ~14–18 həftə<br>
+    ~55–65 iş günü<br>
+    1 developer tam stack
+  </div>
+</div>
+
 </body>
 </html>
