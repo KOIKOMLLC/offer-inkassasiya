@@ -362,7 +362,7 @@
 <body>
 
 <div class="offer-header">
-  <div class="badge">KOMMERSİAL TƏKLİF — 2025</div>
+  <div class="badge">TƏKLİF</div>
   <h1>Kassa İnkassasiya İdarəetmə Sistemi</h1>
 </div>
 
@@ -371,22 +371,22 @@
 <div class="stack-grid">
   <div class="stack-item">
     <div class="layer">Frontend</div>
-    <div class="tech">React 18<br>TypeScript<br>Ant Design / TailwindCSS<br>React Query<br>React Hook Form<br>Recharts</div>
+    <div class="tech">React 18 / Vite<br>TypeScript<br>React Query<br>React Hook Form<br>Recharts</div>
   </div>
   <div class="stack-item">
     <div class="layer">Backend</div>
-    <div class="tech">NestJS<br>TypeScript<br>TypeORM<br>PostgreSQL 15<br>Redis (cache/queue)<br>Rabbit MQ</div>
+    <div class="tech">NestJS<br>TypeScript<br>Prisma<br>PostgreSQL 15<br>Redis (cache/queue)<br>Rabbit MQ / Socket.io</div>
   </div>
   <div class="stack-item">
     <div class="layer">Infra & QA</div>
-    <div class="tech">Docker + Compose<br>JWT + RBAC auth<br>Swagger / OpenAPI<br>Jest + E2E tests<br>Winston logging<br>GitHub Actions CI</div>
+    <div class="tech">Docker + Compose<br>JWT + RBAC auth<br>Swagger / OpenAPI<br>Jest + E2E tests<br>Logging<br>GitHub Actions CI</div>
   </div>
 </div>
 
 <!-- ================= MODULLAR ================= -->
 <div class="section-title">Modullar</div>
 <div class="module-grid">
-  <div class="module-card featured">
+  <div class="module-card">
     <div class="module-num">01</div>
     <div class="module-name">Kassa Bağlanış Modulu</div>
     <ul class="module-items">
@@ -402,7 +402,7 @@
     <div class="module-num">02</div>
     <div class="module-name">Pul Sayım Modulu</div>
     <ul class="module-items">
-      <li>Nominal üzrə sayım (200→qəpik)</li>
+      <li>Nominal üzrə sayım (200 AZN → qəpik)</li>
       <li>Avtomatik cəm hesablaması</li>
       <li>İlkin + yekun sayım imkanı</li>
       <li>Fərq analizi (artıq/əskik)</li>
@@ -448,7 +448,7 @@
   </div>
   <div class="module-card">
     <div class="module-num">06</div>
-    <div class="module-name">Fərq & İnsiden İdarəetmə</div>
+    <div class="module-name">Fərq & İnsident İdarəetmə</div>
     <ul class="module-items">
       <li>Fərq qeydiyyatı + səbəb kodları</li>
       <li>Araşdırma statusu</li>
@@ -512,9 +512,18 @@
 <div class="section-title">İş planı — timeline</div>
 <div class="timeline">
   <div class="phase">
+    <div class="phase-num">Faza 0</div>
+    <div class="phase-name">Planning & Design</div>
+    <div class="phase-weeks">2 həftə / 10 gün</div>
+    <ul class="phase-items">
+      <li>1 həftə planning (5 gün)</li>
+      <li>1 həftə UI/UX design (5 gün)</li>
+    </ul>
+  </div>
+  <div class="phase">
     <div class="phase-num">Faza 1</div>
     <div class="phase-name">Əsas altyapı</div>
-    <div class="phase-weeks">2 həftə</div>
+    <div class="phase-weeks">2 həftə / 10 gün</div>
     <ul class="phase-items">
       <li>DB schema & migrations</li>
       <li>Auth + RBAC</li>
@@ -525,7 +534,7 @@
   <div class="phase">
     <div class="phase-num">Faza 2</div>
     <div class="phase-name">Core modullar</div>
-    <div class="phase-weeks">4 həftə</div>
+    <div class="phase-weeks">4 həftə / 20 gün</div>
     <ul class="phase-items">
       <li>Kassa bağlanış</li>
       <li>Pul sayım</li>
@@ -536,7 +545,7 @@
   <div class="phase">
     <div class="phase-num">Faza 3</div>
     <div class="phase-name">Təsdiq & transfer</div>
-    <div class="phase-weeks">3 həftə</div>
+    <div class="phase-weeks">3 həftə / 15 gün</div>
     <ul class="phase-items">
       <li>Approval flow</li>
       <li>Bank modulu</li>
@@ -547,7 +556,7 @@
   <div class="phase">
     <div class="phase-num">Faza 4</div>
     <div class="phase-name">Hesabat & inteq.</div>
-    <div class="phase-weeks">3 həftə</div>
+    <div class="phase-weeks">3 həftə / 15 gün</div>
     <ul class="phase-items">
       <li>Dashboard</li>
       <li>Hesabatlar + export</li>
@@ -558,7 +567,7 @@
   <div class="phase">
     <div class="phase-num">Faza 5</div>
     <div class="phase-name">Test & deploy</div>
-    <div class="phase-weeks">2 həftə</div>
+    <div class="phase-weeks">2 həftə / 10 gün</div>
     <ul class="phase-items">
       <li>Unit + E2E testlər</li>
       <li>Swagger docs</li>
@@ -568,64 +577,62 @@
   </div>
 </div>
 
-<!-- ================= QİYMƏT BÖLGÜSÜ ================= -->
+
+<!-- ================= QİYMƏT BÖLGÜSÜ (AZN - 8,750 AZN) ================= -->
 <div class="section-title">Qiymət bölgüsü</div>
 <table class="price-table">
   <thead>
-  <tr><th style="width:40%">Deliverable</th><th>Gün / Həftə</th><th style="text-align:right">Qiymət (USD)</th></tr>
+  <tr><th style="width:40%">Deliverable</th><th>Gün</th><th style="text-align:right">Qiymət (AZN)</th></tr>
   </thead>
   <tbody>
   <tr><td colspan="3" style="padding:6px 12px;font-size:11px;background:#f8f7f2;letter-spacing:.06em">BACKEND — NestJS + PostgreSQL + Docker</td></tr>
-  <tr><td>DB schema, migration, seed data</td><td style="color:#6b7280">3 gün</td><td class="amount">450</td></tr>
-  <tr><td>Auth, RBAC, session idarəetməsi</td><td style="color:#6b7280">4 gün</td><td class="amount">600</td></tr>
-  <tr><td>Kassa bağlanış + pul sayım API</td><td style="color:#6b7280">5 gün</td><td class="amount">750</td></tr>
-  <tr><td>İnkassasiya sənədi + status engine</td><td style="color:#6b7280">5 gün</td><td class="amount">750</td></tr>
-  <tr><td>Approval flow + limit eskalasiyası</td><td style="color:#6b7280">4 gün</td><td class="amount">600</td></tr>
-  <tr><td>Transfer + bank depozit modulu</td><td style="color:#6b7280">4 gün</td><td class="amount">600</td></tr>
-  <tr><td>Fərq + insiden idarəetmə</td><td style="color:#6b7280">3 gün</td><td class="amount">450</td></tr>
-  <tr><td>ERP / LOGO inteqrasiya API</td><td style="color:#6b7280">5 gün</td><td class="amount">750</td></tr>
-  <tr><td>Audit log sistemi</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
-  <tr class="subtotal"><td colspan="2" style="font-weight:500">Backend cəm</td><td class="amount" style="font-weight:700">5,250</td></tr>
+  <tr><td>DB schema, migration, seed data</td><td style="color:#6b7280">3 gün</td><td class="amount">400</td></tr>
+  <tr><td>Auth, RBAC, session idarəetməsi</td><td style="color:#6b7280">4 gün</td><td class="amount">530</td></tr>
+  <tr><td>Kassa bağlanış + pul sayım API</td><td style="color:#6b7280">5 gün</td><td class="amount">630</td></tr>
+  <tr><td>İnkassasiya sənədi + status engine</td><td style="color:#6b7280">5 gün</td><td class="amount">630</td></tr>
+  <tr><td>Approval flow + limit eskalasiyası</td><td style="color:#6b7280">4 gün</td><td class="amount">520</td></tr>
+  <tr><td>Transfer + bank depozit modulu</td><td style="color:#6b7280">4 gün</td><td class="amount">520</td></tr>
+  <tr><td>Fərq + insident idarəetmə</td><td style="color:#6b7280">3 gün</td><td class="amount">400</td></tr>
+  <tr><td>ERP / LOGO inteqrasiya API</td><td style="color:#6b7280">5 gün</td><td class="amount">630</td></tr>
+  <tr><td>Audit log sistemi</td><td style="color:#6b7280">2 gün</td><td class="amount">260</td></tr>
+  <tr class="subtotal"><td colspan="2" style="font-weight:500">Backend cəm (35 gün)</td><td class="amount" style="font-weight:700">4,520</td></tr>
 
-  <tr><td colspan="3" style="padding:6px 12px;font-size:11px;background:#f8f7f2;letter-spacing:.06em">FRONTEND — React 18 + TypeScript</td></tr>
-  <tr><td>Layihə qurulması, dizayn sistemi, layout</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
-  <tr><td>Login, profil, rol-based routing</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
-  <tr><td>Dashboard (filial, cash, xəbərdarlıq)</td><td style="color:#6b7280">3 gün</td><td class="amount">450</td></tr>
-  <tr><td>Kassa bağlanış + pul sayım ekranı</td><td style="color:#6b7280">4 gün</td><td class="amount">600</td></tr>
-  <tr><td>İnkassasiya sənədi + PDF çap</td><td style="color:#6b7280">3 gün</td><td class="amount">450</td></tr>
-  <tr><td>Approval + bildiriş ekranları</td><td style="color:#6b7280">3 gün</td><td class="amount">450</td></tr>
-  <tr><td>Transfer + bank ekranı</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
-  <tr><td>Fərq idarəetmə + audit ekranı</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
-  <tr><td>Hesabat + export (Excel/PDF)</td><td style="color:#6b7280">4 gün</td><td class="amount">600</td></tr>
-  <tr class="subtotal"><td colspan="2" style="font-weight:500">Frontend cəm</td><td class="amount" style="font-weight:700">3,750</td></tr>
+  <tr><td colspan="3" style="padding:6px 12px;font-size:11px;background:#f8f7f2;letter-spacing:.06em">FRONTEND — React 18 + TypeScript + Vite</td></tr>
+  <tr><td>Layihə qurulması, dizayn sistemi, layout</td><td style="color:#6b7280">2 gün</td><td class="amount">230</td></tr>
+  <tr><td>Login, profil, rol-based routing</td><td style="color:#6b7280">2 gün</td><td class="amount">230</td></tr>
+  <tr><td>Dashboard (filial, cash, xəbərdarlıq)</td><td style="color:#6b7280">3 gün</td><td class="amount">350</td></tr>
+  <tr><td>Kassa bağlanış + pul sayım ekranı</td><td style="color:#6b7280">4 gün</td><td class="amount">500</td></tr>
+  <tr><td>İnkassasiya sənədi + PDF çap</td><td style="color:#6b7280">3 gün</td><td class="amount">350</td></tr>
+  <tr><td>Approval + bildiriş ekranları</td><td style="color:#6b7280">3 gün</td><td class="amount">350</td></tr>
+  <tr><td>Transfer + bank ekranı</td><td style="color:#6b7280">2 gün</td><td class="amount">230</td></tr>
+  <tr><td>Fərq idarəetmə + audit ekranı</td><td style="color:#6b7280">2 gün</td><td class="amount">230</td></tr>
+  <tr><td>Hesabat + export (Excel/PDF)</td><td style="color:#6b7280">4 gün</td><td class="amount">500</td> </tr>
+  <tr class="subtotal"><td colspan="2" style="font-weight:500">Frontend cəm (25 gün)</td><td class="amount" style="font-weight:700">2,970</td></tr>
 
   <tr><td colspan="3" style="padding:6px 12px;font-size:11px;background:#f8f7f2;letter-spacing:.06em">INFRA, TEST & DOKUMENTASIYA</td></tr>
-  <tr><td>Docker Compose + environment setup</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
-  <tr><td>Jest unit testlər (backend, ≥70% coverage)</td><td style="color:#6b7280">3 gün</td><td class="amount">450</td></tr>
-  <tr><td>E2E testlər (Supertest / Playwright)</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
-  <tr><td>Swagger / OpenAPI dokumentasiyası</td><td style="color:#6b7280">2 gün</td><td class="amount">300</td></tr>
-  <tr><td>Texniki sənədləşmə (README, wiki)</td><td style="color:#6b7280">1 gün</td><td class="amount">150</td></tr>
-  <tr><td>GitHub Actions CI/CD pipeline</td><td style="color:#6b7280">1 gün</td><td class="amount">150</td></tr>
-  <tr class="subtotal"><td colspan="2" style="font-weight:500">Infra/Test/Docs cəm</td><td class="amount" style="font-weight:700">1,650</td></tr>
+  <tr><td>Docker Compose + environment setup</td><td style="color:#6b7280">2 gün</td><td class="amount">230</td></tr>
+  <tr><td>Jest unit testlər (backend, ≥70% coverage)</td><td style="color:#6b7280">3 gün</td><td class="amount">350</td></tr>
+  <tr><td>E2E testlər (Supertest / Playwright)</td><td style="color:#6b7280">2 gün</td><td class="amount">230</td></tr>
+  <tr><td>Swagger / OpenAPI dokumentasiyası</td><td style="color:#6b7280">2 gün</td><td class="amount">230</td></tr>
+  <tr><td>Texniki sənədləşmə (README, wiki)</td><td style="color:#6b7280">1 gün</td><td class="amount">110</td></tr>
+  <tr><td>GitHub Actions CI/CD pipeline</td><td style="color:#6b7280">1 gün</td><td class="amount">110</td></tr>
+  <tr class="subtotal"><td colspan="2" style="font-weight:500">Infra/Test/Docs cəm (11 gün)</td><td class="amount" style="font-weight:700">1,260</td></tr>
 
-  <tr class="total-row"><td colspan="2">CƏMİ (ERP inteqrasiyası daxil olmaqla)</td><td class="amount" style="color:#2563eb; font-weight:800">$10,650</td></tr>
+  <tr class="total-row"><td colspan="2"><strong>LAYİHƏNİN CƏMİ (71 iş günü)</strong></td><td class="amount" style="color:#2563eb; font-weight:800">8,750 AZN</td></tr>
   </tbody>
 </table>
 
-<!-- ================= ŞƏRTLƏR VƏ QEYDLƏR ================= -->
+<!-- ================= ENDİRİM QEYDİ ================= -->
 <div class="notes">
-  <div class="notes-title">Şərtlər və qeydlər</div>
   <ul>
-    <li>Ödəniş: 30% avans, 40% Faza 3 tamamlandıqda, 30% təhvildə</li>
+    <li>Ödəniş: 30% avans (2,625 AZN), 40% Faza 3 tamamlandıqda (3,500 AZN), 30% təhvildə (2,625 AZN)</li>
     <li>Hostinq (server, domain, SSL) bu qiymətə daxil deyil</li>
     <li>Texniki sənədlər, Swagger, README Azərbaycan dilində təqdim edilir</li>
-    <li>Layihənin başlanğıcında əlavə olaraq 1 həftə planning və 1 həftə design (user-friendly interfeys üçün) nəzərdə tutulub.</li>
   </ul>
 </div>
 
 <!-- ================= SUPPORT VƏ ZƏMANƏT ================= -->
 <div class="support-box">
-  <div class="support-title">Dəstək və zəmanət şərtləri</div>
   <ul>
     <li><strong>Açılışdan sonra proyektə aid bütün buglar və problemlər aradan qaldırılana kimi tam dəstək veriləcək.</strong></li>
     <li>Bu dəstək müddəti heç bir əlavə ödəniş tələb etmir — bütün səhvlər düzəldilənə qədər davam edir.</li>
@@ -635,22 +642,10 @@
         <li style="color: #064e3b; display: list-item; list-style: disc; margin-left: 16px;">Tapşırıq başı (per-task / hourly) razılaşma</li>
       </ul>
     </li>
-    <li>Support yalnız proyektin stabil işləməsi, təhlükəsizlik yeniləmələri və kiçik dəyişiklikləri əhatə edir. Yeni modul və ya böyük miqyaslı dəyişikliklər ayrıca razılaşdırılır.</li>
+    <li>Support yalnız proyektin stabil işləməsi, təhlükəsizlik yeniləmələri və kiçik dəyişiklikləri əhatə edir.</li>
   </ul>
 </div>
 
-<!-- ================= FOOTER ================= -->
-<div class="footer">
-  <div class="footer-left">
-    <strong>Qeyd:</strong> Bütün modullar tam stack olaraq hazırlanır.<br>
-    React 18 + TypeScript · NestJS · PostgreSQL · Docker
-  </div>
-  <div class="footer-right">
-    Cəmi iş vaxtı: ~14–18 həftə<br>
-    ~55–65 iş günü<br>
-    1 developer tam stack
-  </div>
-</div>
 
 </body>
 </html>
